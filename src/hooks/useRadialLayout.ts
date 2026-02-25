@@ -43,12 +43,15 @@ export function computeRadialLayout(vaultNodes: VaultNode[], vaultColor: string)
   const nodeMap = new Map(vaultNodes.map(n => [n.id, n]))
 
   // Build children map from parents fields
+  // Only the FIRST parent is used for tree layout — additional parents would
+  // cause d3.hierarchy to clone the node under multiple parents, producing
+  // duplicate positioned nodes and edges.
   const childrenMap = new Map<string, string[]>()
   for (const node of vaultNodes) {
-    for (const parentId of node.parents) {
-      if (!childrenMap.has(parentId)) childrenMap.set(parentId, [])
-      childrenMap.get(parentId)!.push(node.id)
-    }
+    const primaryParent = node.parents[0]
+    if (!primaryParent) continue
+    if (!childrenMap.has(primaryParent)) childrenMap.set(primaryParent, [])
+    childrenMap.get(primaryParent)!.push(node.id)
   }
 
   const hierarchy = d3.hierarchy(rootNode, (node) =>

@@ -83,4 +83,16 @@ describe('computeRadialLayout', () => {
     expect(r.width).toBeGreaterThan(br.width)
     expect(br.width).toBeGreaterThanOrEqual(lf.width)
   })
+  it('uses only the first parent when a node has multiple parents', () => {
+    const nodes = [
+      makeNode('root', 'root'),
+      makeNode('a', 'branch', ['root']),
+      makeNode('b', 'branch', ['root']),
+      makeNode('child', 'leaf', ['a', 'b']), // multi-parent
+    ]
+    const { positioned } = computeRadialLayout(nodes, '#6366f1')
+    // child should appear exactly once
+    const childEntries = positioned.filter(n => n.id === 'child')
+    expect(childEntries).toHaveLength(1)
+  })
 })
