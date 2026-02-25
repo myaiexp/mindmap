@@ -84,22 +84,23 @@ export function computeRadialLayout(vaultNodes: VaultNode[], vaultColor: string)
     }
   })
 
-  // Hierarchy edges using d3.linkRadial (same coordinate system)
-  const linkGen = d3.linkRadial<
-    d3.HierarchyPointLink<VaultNode>,
-    d3.HierarchyPointNode<VaultNode>
-  >()
-    .angle(d => d.x)
-    .radius(d => d.y)
+  // Hierarchy edges: bezier curves between cartesian node positions
+  const posMap = new Map(positioned.map(n => [n.id, n]))
 
-  const hierarchyEdges: EdgePath[] = root.links().map(link => ({
-    id: `h-${link.source.data.id}-${link.target.data.id}`,
-    d: linkGen(link) ?? '',
-    type: 'hierarchy' as const,
-  }))
+  const hierarchyEdges: EdgePath[] = root.links().map(link => {
+    const src = posMap.get(link.source.data.id)!
+    const tgt = posMap.get(link.target.data.id)!
+    // Control point pulled toward origin for a gentle radial curve
+    const cpx = (src.x + tgt.x) / 2 * 0.5
+    const cpy = (src.y + tgt.y) / 2 * 0.5
+    return {
+      id: `h-${link.source.data.id}-${link.target.data.id}`,
+      d: `M ${src.x} ${src.y} Q ${cpx} ${cpy} ${tgt.x} ${tgt.y}`,
+      type: 'hierarchy' as const,
+    }
+  })
 
   // Related edges: straight dashed lines between cartesian node positions
-  const posMap = new Map(positioned.map(n => [n.id, n]))
   const seen = new Set<string>()
   const relatedEdges: EdgePath[] = []
 
