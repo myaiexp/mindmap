@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ReactFlowProvider } from '@xyflow/react'
 import MindMapCanvas from '../components/MindMap/MindMapCanvas'
 import SearchOverlay from '../components/layout/SearchOverlay'
 import { useVaultData } from '../hooks/useVaultData'
@@ -9,7 +8,7 @@ export default function VaultView() {
   const { vaultId } = useParams<{ vaultId: string }>()
   const { meta, nodes } = useVaultData(vaultId ?? '')
   const [searchOpen, setSearchOpen] = useState(false)
-  const [highlightedId, setHighlightedId] = useState<string | null>(null)
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -23,8 +22,8 @@ export default function VaultView() {
   }, [])
 
   const handleSelectNode = useCallback((nodeId: string) => {
-    setHighlightedId(nodeId)
-    // TODO: pan to node
+    setSearchOpen(false)
+    setSelectedNodeId(nodeId)
   }, [])
 
   if (!meta) {
@@ -54,11 +53,13 @@ export default function VaultView() {
         </button>
       </div>
 
-      {/* Canvas */}
+      {/* Canvas — no ReactFlowProvider needed */}
       <div className="flex-1 overflow-hidden">
-        <ReactFlowProvider>
-          <MindMapCanvas vaultNodes={nodes} vaultColor={meta.color} />
-        </ReactFlowProvider>
+        <MindMapCanvas
+          vaultNodes={nodes}
+          vaultColor={meta.color}
+          selectedNodeId={selectedNodeId}
+        />
       </div>
 
       <SearchOverlay

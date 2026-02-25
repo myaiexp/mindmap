@@ -37,18 +37,24 @@ export function loadVaultNodes(vaultId: string): VaultNode[] {
     const filename = path.slice(prefix.length)
     if (filename.includes('/')) continue // no subdirs
 
-    const { data, content } = parseFrontmatter(raw)
-    nodes.push({
-      id: data.id ?? filename.replace('.md', ''),
-      label: data.label ?? data.id ?? filename.replace('.md', ''),
-      type: data.type ?? 'leaf',
-      summary: data.summary ?? '',
-      tags: Array.isArray(data.tags) ? data.tags : [],
-      parents: Array.isArray(data.parents) ? data.parents : [],
-      related: Array.isArray(data.related) ? data.related : [],
-      links: Array.isArray(data.links) ? data.links : [],
-      content: content.trim(),
-    })
+    try {
+      const { data, content } = parseFrontmatter(raw)
+      const fallbackId = filename.replace('.md', '')
+      nodes.push({
+        id: typeof data.id === 'string' ? data.id : fallbackId,
+        label: typeof data.label === 'string' ? data.label : (typeof data.id === 'string' ? data.id : fallbackId),
+        type: (data.type as VaultNode['type']) ?? 'leaf',
+        summary: typeof data.summary === 'string' ? data.summary : '',
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        parents: Array.isArray(data.parents) ? data.parents : [],
+        related: Array.isArray(data.related) ? data.related : [],
+        links: Array.isArray(data.links) ? data.links : [],
+        content: content.trim(),
+      })
+    } catch (err) {
+      console.warn(`[vaultLoader] Skipping malformed node in ${path}:`, err)
+      // just skip — don't push to results
+    }
   }
 
   return nodes
