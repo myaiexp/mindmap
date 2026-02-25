@@ -1,0 +1,5 @@
+vaults:
+  - id: programming
+    label: Programming
+    icon: "💻"
+    color: "#6366f1"
