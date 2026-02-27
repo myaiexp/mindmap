@@ -16,14 +16,14 @@ Hooks allow function components to "hook into" React features previously only av
 
 ## Core Hooks
 
-| Hook | Purpose |
-|---|---|
-| `useState` | Local component state |
-| `useEffect` | Side effects (data fetching, subscriptions, DOM) |
-| `useRef` | Mutable ref that doesn't trigger re-render |
-| `useMemo` | Memoize expensive computations |
-| `useCallback` | Memoize callbacks to avoid re-renders |
-| `useContext` | Consume a React context |
+| Hook          | Purpose                                          |
+| ------------- | ------------------------------------------------ |
+| `useState`    | Local component state                            |
+| `useEffect`   | Side effects (data fetching, subscriptions, DOM) |
+| `useRef`      | Mutable ref that doesn't trigger re-render       |
+| `useMemo`     | Memoize expensive computations                   |
+| `useCallback` | Memoize callbacks to avoid re-renders            |
+| `useContext`  | Consume a React context                          |
 
 ## Rules of Hooks
 
