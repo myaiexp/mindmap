@@ -36,3 +36,5 @@ npm-debug.log*
 CLAUDE.md
 MINDMAP_SCHEMA.md
 PLAN.md
+
+.claude/
