@@ -38,7 +38,7 @@ src/
       <vault-id>/
         _vault.yml            ← Vault metadata (label, color, icon, root node)
         <node-id>.md          ← One file per node (YAML frontmatter + Markdown body)
-docs/plans/                   ← Archived design docs (canvas rewrite)
+.claude/plans/                 ← Archived design docs (canvas rewrite)
 ```
 
 ---
@@ -114,10 +114,10 @@ An overview of the mathematics vault...
 **`index.yml` entry to add:**
 
 ```yaml
-  - id: mathematics
-    label: Mathematics
-    icon: "∑"
-    color: "#f59e0b"
+- id: mathematics
+  label: Mathematics
+  icon: "∑"
+  color: "#f59e0b"
 ```
 
 ---
@@ -159,12 +159,12 @@ An overview of the mathematics vault...
 
 ## Commands
 
-| Command          | Purpose              |
-| ---------------- | -------------------- |
-| `npm run dev`    | Dev server (Vite)    |
-| `npm run build`  | Type-check + build   |
-| `npm run test`   | Run tests (Vitest)   |
-| `npm run lint`   | ESLint               |
+| Command         | Purpose            |
+| --------------- | ------------------ |
+| `npm run dev`   | Dev server (Vite)  |
+| `npm run build` | Type-check + build |
+| `npm run test`  | Run tests (Vitest) |
+| `npm run lint`  | ESLint             |
 
 ## Workflow Tips
 
