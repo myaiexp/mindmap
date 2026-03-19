@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import type { VaultIndex } from '../../data/schema'
 
 interface Props {
@@ -6,8 +6,6 @@ interface Props {
 }
 
 export default function Sidebar({ vaults }: Props) {
-  const navigate = useNavigate()
-
   return (
     <aside className="w-14 flex flex-col items-center py-4 gap-3 border-r border-zinc-800/60 bg-zinc-950 flex-shrink-0">
       {/* Home */}

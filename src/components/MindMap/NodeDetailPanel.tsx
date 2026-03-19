@@ -12,12 +12,13 @@ export default function NodeDetailPanel({ node, vaultColor, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!node) return
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
+  }, [node, onClose])
 
   return (
     <div

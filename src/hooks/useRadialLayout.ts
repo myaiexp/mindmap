@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import * as d3 from 'd3'
-import type { VaultNode } from '../data/schema'
+import type { VaultNode, NodeType } from '../data/schema'
 
-export const NODE_DIMS: Record<string, { width: number; height: number }> = {
+export const NODE_DIMS: Record<NodeType, { width: number; height: number }> = {
   root:     { width: 160, height: 60 },
   branch:   { width: 140, height: 48 },
   leaf:     { width: 120, height: 40 },
@@ -73,7 +73,7 @@ export function computeRadialLayout(vaultNodes: VaultNode[], vaultColor: string)
   // Convert polar (angle=d.x, radius=d.y) to cartesian
   // Using d3's convention: x = r*cos(angle), y = r*sin(angle)
   const positioned: PositionedNode[] = root.descendants().map(d => {
-    const dims = NODE_DIMS[d.data.type] ?? NODE_DIMS.leaf
+    const dims = NODE_DIMS[d.data.type]
     return {
       id: d.data.id,
       x: d.y * Math.cos(d.x),

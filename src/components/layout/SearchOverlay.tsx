@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useSearch } from '../../hooks/useSearch'
 import type { VaultNode } from '../../data/schema'
 
 interface Props {
   nodes: VaultNode[]
-  vaultId: string
   open: boolean
   onClose: () => void
   onSelectNode: (nodeId: string) => void
 }
 
-export default function SearchOverlay({ nodes, vaultId, open, onClose, onSelectNode }: Props) {
+export default function SearchOverlay({ nodes, open, onClose, onSelectNode }: Props) {
   const [query, setQuery] = useState('')
   const results = useSearch(nodes, query)
   const inputRef = useRef<HTMLInputElement>(null)

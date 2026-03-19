@@ -64,7 +64,6 @@ export default function VaultView() {
 
       <SearchOverlay
         nodes={nodes}
-        vaultId={vaultId ?? ''}
         open={searchOpen}
         onClose={() => setSearchOpen(false)}
         onSelectNode={handleSelectNode}

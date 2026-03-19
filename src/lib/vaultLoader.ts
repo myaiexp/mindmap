@@ -17,15 +17,25 @@ export function loadVaultIndex(): VaultIndex[] {
   const indexPath = '/src/data/vaults/index.yml'
   const raw = ymlFiles[indexPath]
   if (!raw) return []
-  const parsed = yaml.load(raw) as { vaults: VaultIndex[] }
-  return parsed.vaults ?? []
+  try {
+    const parsed = yaml.load(raw) as { vaults: VaultIndex[] }
+    return parsed.vaults ?? []
+  } catch (err) {
+    console.warn(`[vaultLoader] Failed to parse vault index:`, err)
+    return []
+  }
 }
 
 export function loadVaultMeta(vaultId: string): VaultMeta | null {
   const path = `/src/data/vaults/${vaultId}/_vault.yml`
   const raw = ymlFiles[path]
   if (!raw) return null
-  return yaml.load(raw) as VaultMeta
+  try {
+    return yaml.load(raw) as VaultMeta
+  } catch (err) {
+    console.warn(`[vaultLoader] Failed to parse vault meta ${path}:`, err)
+    return null
+  }
 }
 
 export function loadVaultNodes(vaultId: string): VaultNode[] {
