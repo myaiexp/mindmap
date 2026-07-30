@@ -38,8 +38,16 @@ src/
       <vault-id>/
         _vault.yml            ← Vault metadata (label, color, icon, root node)
         <node-id>.md          ← One file per node (YAML frontmatter + Markdown body)
-.claude/plans/                 ← Archived design docs (canvas rewrite)
+docs/
+  ideas.md                    ← Future work, deferred items, tech debt
+  plans/                      ← Per-feature design + implementation plans
 ```
+
+## Docs
+
+- [`docs/ideas.md`](docs/ideas.md) — future work, deferred items, tech debt
+- [`docs/plans/canvas-rewrite-design.md`](docs/plans/canvas-rewrite-design.md) — why the
+  canvas moved from ReactFlow/ELK to d3 radial layout (shipped 2026-02-25)
 
 ---
 
