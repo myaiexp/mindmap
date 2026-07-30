@@ -1,5 +1,19 @@
 # Mind Map Vault — Claude Code Instructions
 
+> **Status: archived artifact — superseded by the mase.fi wiki.**
+>
+> This app is no longer the target for new work. Its purpose (a personal knowledge
+> graph) is served by the wiki (`~/Projects/wiki` + `central-hub/packages/frontend/src/features/wiki/`),
+> which has a live API, an editor with autosave, full-text search and revision history —
+> everything below is a weaker version of that, except the radial renderer.
+>
+> The **d3 radial renderer is being ported** into the wiki frontend as a graph view. See
+> `~/Projects/central-hub/docs/plans/2026-07-30-wiki-graph-view-design.md`. This repo is
+> kept as the reference implementation for that renderer; the vault content in
+> `src/data/vaults/` is demo scaffolding and is not migrating.
+>
+> Do not add vault content or features here. Read below only to understand the renderer.
+
 Personal knowledge mind map web app. Mind map content lives as Markdown files in
 `src/data/vaults/`. Claude Code is the primary content author. The app reads these
 files at build time and renders them as an interactive radial graph.
@@ -46,8 +60,13 @@ docs/
 ## Docs
 
 - [`docs/ideas.md`](docs/ideas.md) — future work, deferred items, tech debt
+- [`docs/schema.md`](docs/schema.md) — full vault data-format reference (frontmatter fields,
+  `index.yml`, `_vault.yml`); the sections below are the condensed version
 - [`docs/plans/canvas-rewrite-design.md`](docs/plans/canvas-rewrite-design.md) — why the
   canvas moved from ReactFlow/ELK to d3 radial layout (shipped 2026-02-25)
+- [`docs/plans/original-plan.md`](docs/plans/original-plan.md) — the founding plan, kept as
+  history. **Stale**: its stack table still lists `@xyflow/react` and `elkjs`, both removed
+  in the canvas rewrite
 
 ---
 

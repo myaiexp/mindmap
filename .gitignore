@@ -31,7 +31,3 @@ npm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
-
-# Claude related Markdown files
-MINDMAP_SCHEMA.md
-PLAN.md
